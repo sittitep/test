@@ -3,6 +3,8 @@ class Token < ApplicationRecord
 
   before_create :set_expired_at
 
+  scope :valid, -> { where("expired_at >= ?", Date.today) }
+
   def self.get_uniqe_code
     loop do
       code = SecureRandom.uuid
