@@ -4,5 +4,9 @@ Rails.application.routes.draw do
     post "registrations" => "registrations#create"
     post "sessions" => "sessions#create"
     get  "balance" => "balances#index"
+
+    scope :asset do
+      post ':asset_name/buy' => "assets#buy", as: :buy_asset
+    end
   end
 end

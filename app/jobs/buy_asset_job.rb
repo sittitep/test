@@ -7,6 +7,7 @@ class BuyAssetJob < ApplicationJob
       transaction = Transaction.find_by(txref: txref)
       asset_balance = user.get_balance(asset)
       cash_balance = user.get_balance("cash")
+      amount = amount.to_i
       total_amount = amount * 10
 
       if cash_balance.amount >= total_amount
