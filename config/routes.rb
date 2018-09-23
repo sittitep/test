@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     post "registrations" => "registrations#create"
     post "sessions" => "sessions#create"
     get  "balance" => "balances#index"
+    get  "transactions" => "transactions#index"
 
     scope :asset do
       post ':asset_name/buy' => "assets#buy", as: :buy_asset
