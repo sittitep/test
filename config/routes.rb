@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   scope :api do
     post "registrations" => "registrations#create"
     post "sessions" => "sessions#create"
+    get  "balance" => "balances#index"
   end
 end

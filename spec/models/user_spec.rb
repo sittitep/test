@@ -6,6 +6,7 @@ RSpec.describe User, type: :model do
   describe '#get_token' do
     it 'return token' do
       token = user.get_token
+      
       expect(token).to be_present
       expect(user.tokens.find_by(code: token.code)).to be_present
     end
