@@ -1,0 +1,2 @@
+class BuyTransaction < Transaction
+end

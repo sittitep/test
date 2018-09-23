@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :tokens
   has_many :balances
+  has_many :transactions
 
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true
@@ -22,6 +23,10 @@ class User < ApplicationRecord
 
   def get_token
     Token.create(code: Token.get_uniqe_code, user: self)
+  end
+
+  def get_balance(asset)
+    balances.find_or_initialize_by(asset: asset)
   end
 end
 
