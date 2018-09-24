@@ -2,6 +2,6 @@ class BuyAssetJob < ApplicationJob
   queue_as :default
 
   def perform(args)
-    BuyTransaction.process(args)
+    BuyTransaction.find_by(txref: args[:txref]).process
   end
 end

@@ -1,11 +1,8 @@
 class SellTransaction < Transaction
-  def self.process(txref:, user_id:, asset:, amount:)
+  def process
     ActiveRecord::Base.transaction do
-      user = User.find(user_id)
-      transaction = Transaction.find_by(txref: txref)
       asset_balance = user.get_balance(asset)
       cash_balance = user.get_balance("cash")
-      amount = amount.to_i
       total_amount = amount * 10
 
       if asset_balance.amount >= amount
@@ -13,9 +10,9 @@ class SellTransaction < Transaction
         asset_balance.subtract(amount)
         cash_balance.save
         asset_balance.save
-        transaction.complete!
+        complete!
       else
-        transaction.fail!
+        fail!
       end
     end
   end

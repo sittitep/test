@@ -1,11 +1,8 @@
 class BuyTransaction < Transaction
-  def self.process(txref:, user_id:, asset:, amount:)
+  def process
     ActiveRecord::Base.transaction do
-      user = User.find(user_id)
-      transaction = Transaction.find_by(txref: txref)
       asset_balance = user.get_balance(asset)
       cash_balance = user.get_balance("cash")
-      amount = amount.to_i
       total_amount = amount * 10
 
       if cash_balance.amount >= total_amount
@@ -13,9 +10,9 @@ class BuyTransaction < Transaction
         asset_balance.add(amount)
         cash_balance.save
         asset_balance.save
-        transaction.complete!
+        complete!
       else
-        transaction.fail!
+        fail!
       end
     end
   end
