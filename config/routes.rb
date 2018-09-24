@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  scope :admin do
+    get "dashboard" => "admin#index"
+    get "approve" => "admin#approve"
+    get "reject" => "admin#reject"
+  end
+
   scope :api do
     post "registrations" => "registrations#create"
     post "sessions" => "sessions#create"

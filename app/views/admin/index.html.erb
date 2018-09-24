@@ -1,0 +1,22 @@
+<table>
+  <thead>
+    <tr>
+      <th>TXREF</th>
+      <th>Type</th>
+      <th>Amount</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.txref %></td>
+        <td><%= transaction.type %></td>
+        <td><%= transaction.amount %></td>
+        <td><%= transaction.status %></td>
+        <td><%= link_to("Process", approve_path(transaction_id: transaction.id), method: "POST") %> | <%= link_to("Reject", reject_path(transaction_id: transaction.id), method: "POST") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
