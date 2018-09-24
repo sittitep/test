@@ -10,5 +10,10 @@ Rails.application.routes.draw do
       post ':asset_name/buy' => "assets#buy", as: :buy_asset
       post ':asset_name/sell' => "assets#sell", as: :sell_asset
     end
+
+    namespace :cash do
+      post :top_up
+      post :withdraw
+    end
   end
 end
