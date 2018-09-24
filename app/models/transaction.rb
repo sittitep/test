@@ -12,6 +12,7 @@ class Transaction < ApplicationRecord
     state :pending, :initial => true
     state :completed
     state :failed
+    state :rejected
 
     event :complete do
       transitions :from => :pending, :to => :completed
@@ -19,6 +20,10 @@ class Transaction < ApplicationRecord
 
     event :fail do
       transitions :from => :pending, :to => :failed
+    end
+
+    event :reject do
+      transitions :from => :pending, :to => :rejected
     end
   end
 end
