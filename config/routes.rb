@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
     scope :asset do
       post ':asset_name/buy' => "assets#buy", as: :buy_asset
+      post ':asset_name/sell' => "assets#sell", as: :sell_asset
     end
   end
 end
