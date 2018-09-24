@@ -10,7 +10,7 @@ class Transaction < ApplicationRecord
 
   def initialize(args)
     super(args)
-    self.txref ||= SecureRandom.uuid
+    self.txref ||= Transaction.uuid
   end
 
   belongs_to :user
