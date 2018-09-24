@@ -1,13 +1,16 @@
 class CashController < BaseController
   def top_up
-    transaction = TopUpTransaction.create(user: current_user, amount: params[:amount])
+    txref = Transaction.uuid
+    ProcessTransactionJob.perform_later(txref: txref, user_id: current_user.id, amount: params[:amount], type: "TopUpTransaction")
 
-    render status: 200, json: {txref: transaction.txref}
+    render status: 200, json: {txref: txref}
+
   end
 
   def withdraw
-    transaction = WithdrawTransaction.create(user: current_user, amount: params[:amount])
+    txref = Transaction.uuid
+    ProcessTransactionJob.perform_later(txref: txref, user_id: current_user.id, amount: params[:amount], type: "WithdrawTransaction")
 
-    render status: 200, json: {txref: transaction.txref}
+    render status: 200, json: {txref: txref}
   end
 end
