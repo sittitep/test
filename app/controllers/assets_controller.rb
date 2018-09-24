@@ -1,15 +1,15 @@
 class AssetsController < BaseController
   def buy
-    transaction = BuyTransaction.create(user: current_user, asset: params[:asset_name], amount: params[:amount])
-    BuyAssetJob.perform_later(txref: transaction.txref, user_id: current_user.id, asset: params[:asset_name], amount: params[:amount])
+    txref = Transaction.uuid
+    ProcessTransactionJob.perform_later(txref: txref, user_id: current_user.id, asset: params[:asset_name], amount: params[:amount], type: "BuyTransaction")
 
-    render status: 200, json: {txref: transaction.txref}
+    render status: 200, json: {txref: txref}
   end
 
   def sell
-    transaction = SellTransaction.create(user: current_user, asset: params[:asset_name], amount: params[:amount])
-    SellAssetJob.perform_later(txref: transaction.txref, user_id: current_user.id, asset: params[:asset_name], amount: params[:amount])
+    txref = Transaction.uuid
+    ProcessTransactionJob.perform_later(txref: txref, user_id: current_user.id, asset: params[:asset_name], amount: params[:amount], type: "SellTransaction")
 
-    render status: 200, json: {txref: transaction.txref}
+    render status: 200, json: {txref: txref}
   end
 end

@@ -1,4 +1,13 @@
 class Transaction < ApplicationRecord
+  def self.uuid
+    loop do
+      uuid = SecureRandom.uuid
+      unless Transaction.find_by(txref: uuid)
+        break uuid
+      end
+    end
+  end
+
   def initialize(args)
     super(args)
     self.txref ||= SecureRandom.uuid
