@@ -11,8 +11,8 @@ class BuyAssetJob < ApplicationJob
       total_amount = amount * 10
 
       if cash_balance.amount >= total_amount
-        cash_balance.amount -= total_amount
-        asset_balance.amount += amount
+        cash_balance.subtract(total_amount)
+        asset_balance.add(amount)
         cash_balance.save
         asset_balance.save
         transaction.complete!
