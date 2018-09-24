@@ -1,4 +1,9 @@
 class WithdrawTransaction < Transaction
+  def initialize(args)
+    super(args)
+    self.asset = "cash"
+  end
+  
   def process
     cash_balance = user.get_balance("cash")
 
